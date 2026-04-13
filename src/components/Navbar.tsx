@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -24,8 +25,12 @@ export function Navbar() {
         aria-label="Main navigation"
       >
         {/* Wordmark */}
-        <Link href="/" className="text-lg font-semibold tracking-wider text-veld-light">
-          VELD PROTOCOL
+        <Link href="/" className="flex items-center gap-3">
+          <Image src="/Brand/veld-mark-mono-white.svg" alt=""
+                 width={36} height={29} priority />
+          <Image src="/Brand/veld-wordmark-white.svg" alt="Veld Protocol"
+                 width={140} height={21} priority
+                 className="hidden sm:block" />
         </Link>
 
         {/* Desktop links */}

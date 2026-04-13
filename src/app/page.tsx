@@ -1,3 +1,5 @@
+import { WaitlistForm } from "@/components/WaitlistForm";
+
 export default function Home() {
   return (
     <section className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
@@ -5,8 +7,11 @@ export default function Home() {
         Veld Protocol
       </h1>
       <p className="mt-6 max-w-lg text-center text-lg text-veld-pale/60">
-        Open infrastructure for decentralised coordination.
+        The settlement layer for AI agent commerce.
       </p>
+      <div className="mt-10">
+        <WaitlistForm />
+      </div>
     </section>
   );
 }

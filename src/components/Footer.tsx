@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const FOOTER_SECTIONS = [
   {
@@ -30,8 +31,9 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
           {/* Wordmark column */}
           <div className="col-span-2 sm:col-span-1">
-            <Link href="/" className="text-base font-semibold tracking-wider text-veld-light">
-              VELD PROTOCOL
+            <Link href="/" className="inline-block">
+              <Image src="/Brand/veld-wordmark-white.svg" alt="Veld Protocol"
+                     width={160} height={24} />
             </Link>
             <p className="mt-3 text-sm text-veld-pale/50 max-w-xs">
               Open infrastructure for decentralised coordination.
