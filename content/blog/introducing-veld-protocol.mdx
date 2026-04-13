@@ -1,0 +1,206 @@
+---
+title: "Introducing Veld Protocol: commerce rails for the agent economy"
+description: "Veld Protocol is a settlement and negotiation layer for autonomous AI agent commerce. Today we're opening the protocol to builders."
+date: "2026-04-13"
+author: "The Veld Team"
+category: "Launch"
+og_image: "/og/veld-launch.png"
+canonical: "https://veldprotocol.com/blog/introducing-veld-protocol"
+---
+
+# Introducing Veld Protocol: commerce rails for the agent economy
+
+AI agents have become competent at reasoning, search, planning, and structured execution. They can read docs, compare vendors, rank options, and prepare a recommendation faster than any human operator. What they still cannot do reliably is complete the transaction.
+
+That is the missing layer.
+
+> **TL;DR**
+> - AI agents can recommend, but they cannot reliably transact. That last mile is unsolved.
+> - Veld Protocol is a settlement and negotiation layer: discovery, negotiation, USDC escrow on Base, portable ERC-8004 reputation on Celo.
+> - Live today on testnet with Claude Managed Agents. Open SDK and mainnet next.
+
+Today, most agent workflows stop at the edge of commerce. An assistant can tell you which service to buy, which supplier is cheapest, or which appointment slot is available. But once the decision is made, the flow usually collapses back into human coordination: a browser session, a payment form, a manual confirmation step, an email thread, a platform lock-in, or an API integration built for a single application rather than an open network.
+
+The last mile of agent commerce is still unsolved.
+
+We built **Veld Protocol** to address that problem. Veld is a settlement and negotiation layer for autonomous AI agent commerce. It gives agents a standard way to discover providers, negotiate terms, escrow funds, settle transactions, and carry portable reputation across interactions.
+
+This is transaction infrastructure, not a chat wrapper.
+
+## The problem: agents can recommend, but they cannot transact
+
+The current generation of AI systems is good enough to drive real economic intent.
+
+A consumer agent can infer that its user needs a dog grooming appointment in Cardiff next Tuesday. It can translate vague preferences into structured constraints. It can search provider availability, compare prices, and choose the best candidate. In many cases, it can perform the entire decision-making path up to the final click.
+
+But the actual transaction path remains fragmented.
+
+There are four common failure points.
+
+First, **discovery is not commerce-aware**. Agents may find information, but they are not discovering counterparties in a way that supports capability exchange, machine-readable policies, and transaction execution.
+
+Second, **negotiation is ad hoc**. Real-world services are rarely a single fixed-price API call. They involve time windows, location constraints, service variations, cancellation terms, deposits, and acceptance conditions. Agents need a standard way to exchange those terms.
+
+Third, **settlement is missing**. Even when both sides agree, there is no common mechanism for machine-triggered escrow, release conditions, fee routing, and verifiable completion.
+
+Fourth, **reputation is trapped inside platforms**. If an agent has successfully completed 500 transactions in one network, that trust should not disappear when it interacts elsewhere. Reputation needs to move with identity.
+
+Without those rails, agents remain advisory systems. They can search and suggest, but they cannot participate in economic execution with any serious degree of autonomy.
+
+## What Veld Protocol does
+
+Veld Protocol provides the missing transaction path between a consumer agent and a provider agent.
+
+At a high level, the model is simple:
+
+- A **consumer agent** represents user intent.
+- A **provider agent** represents a business or service provider.
+- The protocol handles discovery, negotiation, escrow, settlement, and post-transaction reputation.
+
+That means a user-facing assistant such as ChatGPT, Claude, Gemini, or any custom agent runtime can move from "find me a provider" to "book and pay for the service" without collapsing into manual handoff.
+
+In the Veld model, consumer agents query provider agents through an open discovery layer, negotiate structured terms, fund the transaction in USDC escrow, settle on completion, and publish attestations that update portable reputation.
+
+The important design choice is that Veld does not try to own the application layer. It does not require every agent to live inside one marketplace or one UI. It exists to standardise the transaction path underneath those applications.
+
+This matters because real-world service commerce is messy. Prices vary. Availability changes. Policies matter. Disputes happen. Escrow and reputation are not optional extras. They are part of the minimum infrastructure needed for agents to transact credibly.
+
+## Architecture overview
+
+Veld uses a dual-chain architecture because the requirements for settlement and reputation are related, but not identical.
+
+**Base L2** is used for settlement. This is where USDC escrow, release logic, and protocol fee routing happen. Settlement needs low-cost execution, predictable payment rails, and composability with stablecoin infrastructure.
+
+**Celo** is used for identity and portable reputation. This is where agent identity anchored to [ERC-8004](https://eips.ethereum.org/EIPS/eip-8004) and transaction-linked attestations can persist independently of any single application or provider network.
+
+Above those layers, discovery and negotiation happen in protocol space rather than chain space.
+
+For discovery, Veld is designed to work with **[Google A2A](https://github.com/google/A2A)** style agent discovery patterns. The goal is straightforward: a consumer agent should be able to locate provider agents, inspect capabilities, understand policies, and begin negotiation without bespoke integration work for every provider.
+
+For payments, the protocol follows an **[x402-style](https://www.x402.org)** flow. The consumer agent receives terms, accepts an agreement, funds escrow, and moves the transaction into a verifiable state machine. Completion then triggers release and fee distribution.
+
+For identity, Veld uses **ERC-8004** to make agent reputation portable. Identity here is not profile decoration. It is the anchor for transaction history, attestations, and trust signals that other agents can evaluate programmatically.
+
+A simplified flow looks like this:
+
+1. Consumer agent expresses intent.
+2. Discovery returns matching provider agents.
+3. Negotiation produces an agreement.
+4. Consumer funds escrow in USDC on Base.
+5. Service is fulfilled or confirmed.
+6. Settlement releases funds.
+7. Both sides publish attestations tied to ERC-8004 identity on Celo.
+
+That gives agents a complete path from intent to completed transaction.
+
+## A negotiation example
+
+The protocol is designed around structured exchange, not prompt magic. A consumer agent should be able to express constraints clearly, and a provider agent should be able to respond with machine-readable terms.
+
+A minimal request/response sketch:
+
+```json
+{
+  "request": {
+    "intent": "book_service",
+    "service_type": "dog_grooming",
+    "location": "Cardiff, UK",
+    "time_window": {
+      "start": "2026-05-01T09:00:00Z",
+      "end": "2026-05-03T18:00:00Z"
+    },
+    "constraints": {
+      "max_price_usdc": 65,
+      "provider_rating_min": 4.7
+    }
+  },
+  "response": {
+    "provider_agent_id": "agent_bookd_groomer_014",
+    "status": "counter_offer",
+    "terms": {
+      "price_usdc": 58,
+      "slot": "2026-05-02T10:30:00Z",
+      "cancellation_window_hours": 24,
+      "settlement": "usdc_escrow_base"
+    }
+  }
+}
+```
+
+The point is not the payload shape. That will evolve. The point is that agents need a transaction grammar, not just a recommendation interface.
+
+## Why now
+
+This only becomes worth building when the agent layer is mature enough to produce real demand.
+
+We think that threshold has now been crossed.
+
+Agent frameworks are no longer speculative toys. Claude Managed Agents, OpenAI Assistants, Google A2A patterns, and broader multi-agent infrastructure are making it practical to deploy systems that can reason over tasks, maintain state, call tools, and operate in controlled production settings.
+
+That changes the bottleneck.
+
+The problem is no longer "can an agent understand the task?" In many domains, it can. The problem is "can an agent safely complete the economic action?"
+
+Someone needs to build the commerce rails.
+
+Those rails have to satisfy a few non-negotiable requirements:
+
+- Open discovery, not single-platform lock-in
+- Structured negotiation, not brittle prompt-only handshakes
+- Verifiable settlement, not trust-me invoicing
+- Portable identity and reputation, not siloed marketplace scores
+- A clean path from on-chain coordination to off-chain business payout
+
+That is the design space Veld is targeting.
+
+## Current status
+
+Veld is not a concept deck. It is under active build.
+
+Current status:
+
+- **289 tests passing**
+- **Dual-chain live on testnet** — settlement on Base, identity and reputation on Celo
+- **Live smoke test with Claude Managed Agents**
+- **Negotiation and settlement flow implemented end-to-end**
+- **Open SDK and mainnet deployment next**
+
+The smoke test mattered because it validated the core proposition at the agent layer. We were not testing whether a UI could simulate a booking. We were testing whether one agent could coordinate with another through the protocol path and reach a transaction-capable state.
+
+That distinction matters. Plenty of systems can demonstrate a guided workflow. Fewer systems can support credible machine-to-machine commerce.
+
+## What comes next
+
+The next stage is opening the protocol to more builders.
+
+That means an **open SDK**, clearer integration primitives, and a tighter developer path for registering agents, exposing capabilities, initiating negotiations, and handling settlement events.
+
+It also means **multi-sector expansion**. Veld starts from a services context because service transactions expose the real complexity of agent commerce. Availability, scope, pricing, acceptance conditions, and fulfilment state all need to be negotiated. That makes services a good proving ground.
+
+Over time, the same rails can extend beyond one vertical. The model should support any domain where an agent needs to find a provider, agree terms, pay, and carry forward a reputation trail.
+
+Mainnet deployment is also ahead. The protocol needs to move from controlled validation to broader real-world execution. That stage matters less for optics and more for durability. Settlement infrastructure is only useful when it can survive contact with actual counterparties, policy edge cases, and operational variance.
+
+## Why we are building this
+
+Veld Protocol comes out of **[Bookd](https://getbookd.io)**, a multi-sector booking platform for real-world service businesses.
+
+Bookd gave us a direct view into a problem that most protocol discussions ignore: real commerce is full of operational detail. Scheduling, fulfilment rules, service configuration, no-show risk, provider constraints, and payout handling are part of the transaction. You cannot abstract them away with a token and a wallet call.
+
+If AI agents are going to participate in the real economy, they need more than intelligence. They need transaction infrastructure that respects the messiness of real-world services while staying open enough to support an ecosystem.
+
+That is the work.
+
+## Closing
+
+The agent economy will not be unlocked by better recommendations alone. It will be unlocked when agents can complete transactions with clear terms, verifiable settlement, and portable trust.
+
+That is the layer Veld Protocol is building.
+
+If you are building agent runtimes, payment infrastructure, reputation systems, or service marketplaces, this is the right moment to pay attention. The application layer is moving quickly. The commerce layer needs to catch up.
+
+**Next steps:**
+
+- [Star the repo on GitHub →](https://github.com/getbookd/veld-protocol)
+- [Join the developer waitlist →](https://veldprotocol.com/#waitlist)
+- [Read the protocol spec →](https://veldprotocol.com/protocol)
