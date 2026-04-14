@@ -50,3 +50,60 @@ body {
   background: rgba(82, 183, 136, 0.3);
   color: #F8FAF9;
 }
+
+/* ─── Hero background utilities ─────────────────────────────────────── */
+
+/* Coordinate-plane dot grid — subtle texture behind the hero diagram */
+.veld-dot-grid {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(45, 106, 79, 0.35) 1px,
+    transparent 0
+  );
+  background-size: 40px 40px;
+  mask-image: radial-gradient(
+    ellipse at center,
+    #000 35%,
+    transparent 75%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    #000 35%,
+    transparent 75%
+  );
+}
+
+/* Ambient radial glow from top-right — creates depth behind the diagram */
+.veld-radial-glow {
+  background:
+    radial-gradient(
+      ellipse 60% 50% at 75% 35%,
+      rgba(64, 145, 108, 0.18) 0%,
+      rgba(64, 145, 108, 0.06) 40%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 80% 60% at 20% 80%,
+      rgba(27, 67, 50, 0.25) 0%,
+      transparent 60%
+    );
+}
+
+/* Ping animation override — slower, more ambient than Tailwind's default */
+@keyframes veld-ping {
+  75%,
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .veld-dot-grid,
+  .veld-radial-glow {
+    /* Keep the static treatment, just no motion */
+  }
+  .animate-ping {
+    animation: none !important;
+  }
+}
