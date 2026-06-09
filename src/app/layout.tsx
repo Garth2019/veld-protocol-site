@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
+import { SiteChrome } from "@/components/SiteChrome";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import "./globals.css";
 
@@ -42,12 +41,8 @@ export const metadata: Metadata = {
     description:
       "Open infrastructure for decentralised coordination.",
   },
-  icons: {
-    icon: [
-      { url: "/Brand/veld-mark-favicon.svg", type: "image/svg+xml" },
-    ],
-    apple: [{ url: "/Brand/veld-mark-favicon.svg" }],
-  },
+  // Icons are provided by the file conventions app/icon.svg + app/apple-icon.tsx
+  // (the gold-block "v" mark). No manual icons config needed.
 };
 
 export default function RootLayout({
@@ -63,9 +58,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-veld-dark text-foreground">
         <JsonLd />
         <PostHogProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <SiteChrome>{children}</SiteChrome>
         </PostHogProvider>
       </body>
     </html>
