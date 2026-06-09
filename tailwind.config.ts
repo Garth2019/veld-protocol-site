@@ -10,14 +10,14 @@ const config: Config = {
     extend: {
       colors: {
         veld: {
-          dark: '#0F1A12',
-          forest: '#1B4332',
-          primary: '#2D6A4F',
-          mid: '#40916C',
-          light: '#52B788',
-          pale: '#B7E4C7',
-          surface: '#D8F3DC',
-          gold: '#B69121',
+          dark: '#07090C',
+          forest: '#13161E',
+          primary: '#E8C766',
+          mid: '#E0935C',
+          light: '#E8C766',
+          pale: '#C7CDD8',
+          surface: '#F4F6FA',
+          gold: '#E8C766',
         },
         neutral: {
           50: '#F8FAF9',

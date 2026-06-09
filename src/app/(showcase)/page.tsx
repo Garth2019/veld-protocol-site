@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./veld.css";
 import { HeroFilm } from "./_components/HeroFilm";
-import { VeldWordmark } from "./_components/VeldWordmark";
+import { VeldWordmark } from "@/components/VeldWordmark";
 import { WaitlistForm } from "./_components/WaitlistForm";
 import { VeldMotion } from "./_components/VeldMotion";
 

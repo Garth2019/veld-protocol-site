@@ -1,16 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0F1A12;
-  --foreground: #F8FAF9;
-  --veld-dark: #0F1A12;
-  --veld-forest: #1B4332;
-  --veld-primary: #2D6A4F;
-  --veld-mid: #40916C;
-  --veld-light: #52B788;
-  --veld-pale: #B7E4C7;
-  --veld-surface: #D8F3DC;
-  --veld-gold: #B69121;
+  /* Veld brand — obsidian + liquid gold (matches the homepage showpiece). */
+  --background: #07090C;
+  --foreground: #F4F6FA;
+  --veld-dark: #07090C;
+  --veld-forest: #13161E;
+  --veld-primary: #E8C766;
+  --veld-mid: #E0935C;
+  --veld-light: #E8C766;
+  --veld-pale: #C7CDD8;
+  --veld-surface: #F4F6FA;
+  --veld-gold: #E8C766;
 }
 
 @theme inline {
@@ -36,8 +37,8 @@ body {
 
 /* Prose styling for MDX content */
 .prose pre {
-  background: #0F1A12;
-  border: 1px solid #1B4332;
+  background: #07090C;
+  border: 1px solid #13161E;
   border-radius: 0.5rem;
 }
 
@@ -47,8 +48,8 @@ body {
 
 /* Selection colour */
 ::selection {
-  background: rgba(82, 183, 136, 0.3);
-  color: #F8FAF9;
+  background: rgba(232, 199, 102, 0.3);
+  color: #F4F6FA;
 }
 
 /* ─── Hero background utilities ─────────────────────────────────────── */
@@ -57,7 +58,7 @@ body {
 .veld-dot-grid {
   background-image: radial-gradient(
     circle at 1px 1px,
-    rgba(45, 106, 79, 0.35) 1px,
+    rgba(232, 199, 102, 0.18) 1px,
     transparent 0
   );
   background-size: 40px 40px;
@@ -78,13 +79,13 @@ body {
   background:
     radial-gradient(
       ellipse 60% 50% at 75% 35%,
-      rgba(64, 145, 108, 0.18) 0%,
-      rgba(64, 145, 108, 0.06) 40%,
+      rgba(232, 199, 102, 0.16) 0%,
+      rgba(232, 199, 102, 0.05) 40%,
       transparent 70%
     ),
     radial-gradient(
       ellipse 80% 60% at 20% 80%,
-      rgba(27, 67, 50, 0.25) 0%,
+      rgba(7, 9, 12, 0.35) 0%,
       transparent 60%
     );
 }
