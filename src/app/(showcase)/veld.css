@@ -945,9 +945,42 @@ section { position: relative; }
   .case.feature, .case.tall, .case.wide, .case.std { grid-column: span 1; }
   .anatomy-grid { grid-template-columns: 1fr; }
   .anat-cell:nth-child(5) { grid-column: span 1; }
-  .stage-canvas { height: 380px; }
-  .agent { position: relative; top: auto; transform: none; width: 100%; left: auto !important; right: auto !important; margin: 12px; }
   .waitlist { flex-direction: column; }
+
+  /* Signature stage: the desktop layout pins the two agents absolutely over a
+     decorative SVG network with a centred value readout. On phones those layers
+     overlap into a mess, so drop the decorative layer and stack the two agent
+     cards cleanly under the topbar (the ledger already stacks at 860px). */
+  .stage-canvas {
+    height: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .stage-svg,
+  .value-readout,
+  .packet { display: none; }
+  .agent {
+    position: static;
+    width: 100%;
+    margin: 0;
+    transform: none;
+    left: auto !important;
+    right: auto !important;
+  }
+}
+
+@media (max-width: 560px) {
+  /* Nav collapses to wordmark + primary CTA. The "Read the protocol" link is
+     inline-styled in the markup, so !important is needed to hide it here. */
+  .nav { --brand-size: 30px; }
+  .nav-cta-wrap { gap: 12px; }
+  .nav-cta-wrap a.nav-links { display: none !important; }
+
+  /* Footer reads better fully stacked on small phones. */
+  .footer-top { flex-direction: column; gap: 36px; }
+  .footer-bottom { flex-direction: column; gap: 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
