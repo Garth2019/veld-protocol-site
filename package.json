@@ -2,6 +2,9 @@
   "name": "veld-protocol-site",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=24"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -16,7 +19,7 @@
     "@supabase/supabase-js": "^2.103.0",
     "@tailwindcss/typography": "^0.5.19",
     "framer-motion": "^12.38.0",
-    "next": "16.2.3",
+    "next": "16.3.3",
     "posthog-js": "^1.368.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
@@ -30,7 +33,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.3",
+    "eslint-config-next": "16.3.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
