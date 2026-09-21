@@ -616,6 +616,13 @@ export default function UseCasesProPage() {
             <span>© 2026 Veld Protocol</span>
             <span>Base + Celo · USDC · ERC-8004</span>
             <span>From invisible to unforgettable</span>
+            <span className="s72-credit">
+              Website by{" "}
+              <a href="https://studio72.dev" rel="noopener">
+                Studio 72
+              </a>
+              , Cardiff
+            </span>
           </div>
         </div>
       </footer>

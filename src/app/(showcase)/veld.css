@@ -988,3 +988,7 @@ section { position: relative; }
   .grain { animation: none; }
   .reveal { opacity: 1; transform: none; }
 }
+/* Studio 72 client credit — doctrine §15. Inherits the footer's muted tone. */
+.footer-bottom .s72-credit a { color: inherit; text-decoration: underline;
+  text-underline-offset: 2px; transition: color .2s; }
+.footer-bottom .s72-credit a:hover { color: var(--veld-pale, #e8e6e1); }

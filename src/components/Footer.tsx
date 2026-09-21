@@ -63,9 +63,22 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t border-white/5 pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <p className="text-xs text-veld-pale/30">
-            &copy; {new Date().getFullYear()} Veld Protocol. All rights reserved.
-          </p>
+          <div className="flex flex-col gap-1">
+            <p className="text-xs text-veld-pale/30">
+              &copy; {new Date().getFullYear()} Veld Protocol. All rights reserved.
+            </p>
+            <p className="s72-credit text-xs text-veld-pale/30">
+              Website by{" "}
+              <a
+                href="https://studio72.dev"
+                rel="noopener"
+                className="underline underline-offset-2 transition-colors hover:text-veld-pale/60"
+              >
+                Studio 72
+              </a>
+              , Cardiff
+            </p>
+          </div>
           <a
             href={GITHUB_URL}
             target="_blank"
