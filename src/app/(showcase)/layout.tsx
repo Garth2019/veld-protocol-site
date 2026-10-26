@@ -1,24 +1,23 @@
 import type { ReactNode, CSSProperties } from "react";
-import { Instrument_Serif, Hanken_Grotesk, JetBrains_Mono, Modak } from "next/font/google";
+import { Instrument_Serif, Hanken_Grotesk } from "next/font/google";
 
 // The Claude Design type system (confirmed from veld.css), self-hosted via next/font.
+// JetBrains Mono and Modak (the wordmark face, --font-veld-display) come from the root layout:
+// declaring them again here preloaded a second copy of each on the home page.
 const display = Instrument_Serif({ subsets: ["latin"], weight: ["400"], style: ["normal", "italic"], variable: "--font-pro-display", display: "swap" });
 const body = Hanken_Grotesk({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"], variable: "--font-pro-body", display: "swap" });
-const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-pro-mono", display: "swap" });
-// Modak — the chunky "noot noot" face behind the Veld wordmark.
-const logo = Modak({ subsets: ["latin"], weight: ["400"], variable: "--font-veld-display", display: "swap" });
 
 // Redirect veld.css's font tokens to the self-hosted next/font faces.
 const fontVars: CSSProperties = {
   ["--serif" as string]: "var(--font-pro-display), 'Instrument Serif', Georgia, serif",
   ["--grotesk" as string]: "var(--font-pro-body), 'Hanken Grotesk', system-ui, sans-serif",
-  ["--mono" as string]: "var(--font-pro-mono), 'JetBrains Mono', ui-monospace, monospace",
+  ["--mono" as string]: "var(--font-jetbrains-mono), 'JetBrains Mono', ui-monospace, monospace",
 };
 
 export default function UseCasesProLayout({ children }: { children: ReactNode }) {
   return (
     <div
-      className={`${display.variable} ${body.variable} ${mono.variable} ${logo.variable}`}
+      className={`${display.variable} ${body.variable}`}
       style={{
         ...fontVars,
         minHeight: "100vh",
