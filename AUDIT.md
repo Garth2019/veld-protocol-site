@@ -41,11 +41,22 @@ Changes:
   `.ready`, so on a slow phone the headline stayed invisible until React booted.
 - `/` now has a canonical (`https://veldprotocol.io/`); it had none.
 
-### Numbers (Lighthouse 12, mobile, median of 3)
-| | Perf | LCP | TBT | A11y | BP | SEO |
+### Numbers (Lighthouse 12, mobile, median of 3; serial re-measure on 27 Oct)
+| | Perf | LCP (max) | TBT | A11y | BP | SEO |
 |---|---|---|---|---|---|---|
-| Production, 26 Oct (before) | 79 | 4.58 s (max 4.61) | 228 ms | 94 | 100 | 100 |
-| Preview, this branch (after) | _see final pass_ | | | | | n/a on a protected preview |
+| Production veldprotocol.io, 26 Oct baseline | 79 | 4.58 s (4.61) | 228 ms | 94 | 100 | 100 |
+| Production veldprotocol.io, 27 Oct | 71 | 5.75 s (5.96) | 213 ms | 94 | 100 | 100 |
+| Production code on its own vercel.app URL (same SSO environment as the preview) | 73 | 5.82 s (5.98) | 105 ms | 94 | 100 | n/a |
+| **Preview, this branch** (`dpl_DfEcN5yGc4XpoCQqRPcQ6zxymUYG`, 8208e60) | **85** | **3.57 s (3.63)** | 110 ms | 93 | 93* | n/a |
+
+The clean comparison is row 3 against row 4: the same environment, only the code differs. Perf rises 73 → 85 and LCP
+drops by 2.25 s. **Not yet ≥90.** What's left before first paint is ~127 KB of fonts and ~200 KB of Next/React JS.
+Under Lighthouse, the vercel.app/SSO hop also delays the observed first paint on every vercel.app URL; a browser probe
+shows ~0.6 s on both. Production on the custom domain should therefore land somewhat higher, but that is **not
+verified**.
+
+\*BP 93 is preview-only: Vercel's injected vercel.live script is blocked by the CSP. A11y 93/94 is the existing
+contrast failures (below).
 
 ### Gate (preview)
 - audit_page: 34/47, 5 blocking. All 5 were already failing on production, which scores 32/47 with 6 blocking; this
