@@ -5,7 +5,8 @@ import { Instrument_Serif, Hanken_Grotesk } from "next/font/google";
 // JetBrains Mono and Modak (the wordmark face, --font-veld-display) come from the root layout:
 // declaring them again here preloaded a second copy of each on the home page.
 const display = Instrument_Serif({ subsets: ["latin"], weight: ["400"], style: ["normal", "italic"], variable: "--font-pro-display", display: "swap" });
-const body = Hanken_Grotesk({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"], variable: "--font-pro-body", display: "swap" });
+// Body text isn't the LCP (the Modak wordmark and the serif headline are), so it isn't preloaded; swap covers it.
+const body = Hanken_Grotesk({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"], variable: "--font-pro-body", display: "swap", preload: false });
 
 // Redirect veld.css's font tokens to the self-hosted next/font faces.
 const fontVars: CSSProperties = {

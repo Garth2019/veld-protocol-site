@@ -14,10 +14,12 @@ const inter = Inter({
   preload: false,
 });
 
+// Not preloaded: only small labels and code use it, never the LCP.
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 });
 
 // Modak — the chunky "veld" wordmark face, available site-wide for the brand mark.
