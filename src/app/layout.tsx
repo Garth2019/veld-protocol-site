@@ -5,10 +5,13 @@ import { SiteChrome } from "@/components/SiteChrome";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import "./globals.css";
 
+// Not preloaded: the home page (the showcase) never uses Inter, and a preload there competes with its LCP.
+// Other pages discover it from their CSS; display: swap and next/font's fallback metrics cover the gap.
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 });
 
 const jetbrainsMono = JetBrains_Mono({

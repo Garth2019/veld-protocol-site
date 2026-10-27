@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: { absolute: "Veld — Agents that transact for real" },
   description:
     "Veld — the open settlement layer for autonomous agents. Discover, negotiate, escrow in USDC, settle on-chain, and carry portable reputation.",
+  alternates: { canonical: "/" },
 };
 
 /**

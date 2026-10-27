@@ -28,7 +28,9 @@ function PageViewTracker() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_POSTHOG_KEY) return;
+    // Before PostHog has loaded, importing it here would download it during first paint;
+    // the landing view is recorded by init's `loaded` callback instead.
+    if (!process.env.NEXT_PUBLIC_POSTHOG_KEY || !posthogLoaded) return;
 
     import("posthog-js").then(({ default: posthog }) => {
       if (posthog.__loaded) {
