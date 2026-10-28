@@ -16,7 +16,7 @@ Veld Protocol is a settlement and negotiation layer that lets autonomous agents 
 - **Styling:** Tailwind CSS v4
 - **Content:** MDX for blog posts, with Shiki for syntax highlighting
 - **OG cards:** `@vercel/og` for dynamic social previews
-- **Analytics:** PostHog (EU region, env-gated)
+- **Analytics:** PostHog (EU region, env-gated) — loads only after the visitor accepts the cookie banner (`src/lib/consent.ts`, `src/components/consent/`). Any new third-party script, embed or processor must update `/privacy` and `/cookies` in the same PR.
 - **Error tracking:** Sentry (env-gated)
 - **Waitlist:** Supabase upsert via `/api/waitlist`
 - **Hosting:** Vercel (auto-deploy from `main`)

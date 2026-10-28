@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono, Modak } from "next/font/google";
 import { JsonLd } from "@/components/JsonLd";
 import { SiteChrome } from "@/components/SiteChrome";
 import { PostHogProvider } from "@/components/PostHogProvider";
+import { CookieBanner } from "@/components/consent/CookieBanner";
 import "./globals.css";
 
 // Not preloaded: the home page (the showcase) never uses Inter, and a preload there competes with its LCP.
@@ -87,6 +88,7 @@ export default function RootLayout({
         <PostHogProvider>
           <SiteChrome>{children}</SiteChrome>
         </PostHogProvider>
+        <CookieBanner />
       </body>
     </html>
   );

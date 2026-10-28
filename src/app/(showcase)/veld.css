@@ -851,6 +851,15 @@ section { position: relative; }
 }
 .form-note.success { color: var(--gold); }
 .form-note.error { color: var(--copper); }
+/* Privacy line under the waitlist button (UK GDPR Art 13 — notice at the point of collection). */
+.form-privacy {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-mute);
+}
+.form-privacy a { color: var(--ink-soft); text-decoration: underline; text-underline-offset: 2px; }
+.form-privacy a:hover { color: var(--gold); }
 
 /* ============================================================
    FOOTER
@@ -886,6 +895,23 @@ section { position: relative; }
   transition: color 0.2s var(--ease-ui), transform 0.2s var(--ease-ui);
 }
 .footer-col a:hover { color: var(--gold); transform: translateX(3px); }
+/* "Cookie settings" reopens the consent banner — a button dressed as a footer link. */
+.footer-col .footer-col-btn {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  text-align: left;
+  cursor: pointer;
+  margin-bottom: 11px;
+  transition: color 0.2s var(--ease-ui), transform 0.2s var(--ease-ui);
+}
+.footer-col .footer-col-btn:hover { color: var(--gold); transform: translateX(3px); }
+.footer-col a:focus-visible,
+.footer-col .footer-col-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 .footer-bottom {
   margin-top: 64px;
   padding-top: 28px;
