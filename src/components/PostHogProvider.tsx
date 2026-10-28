@@ -16,6 +16,8 @@ function loadPostHog() {
       api_host: host,
       capture_pageview: false,
       capture_pageleave: true,
+      // PageViewTracker skips views until PostHog has loaded, so the landing view is recorded here.
+      loaded: (ph) => ph.capture("$pageview", { $current_url: window.location.href }),
     });
     posthogLoaded = true;
   });
@@ -26,7 +28,9 @@ function PageViewTracker() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_POSTHOG_KEY) return;
+    // Before PostHog has loaded, importing it here would download it during first paint;
+    // the landing view is recorded by init's `loaded` callback instead.
+    if (!process.env.NEXT_PUBLIC_POSTHOG_KEY || !posthogLoaded) return;
 
     import("posthog-js").then(({ default: posthog }) => {
       if (posthog.__loaded) {
@@ -40,10 +44,19 @@ function PageViewTracker() {
   return null;
 }
 
+/** Analytics never competes with the first paint: load once the page has loaded and the main thread is idle. */
+function whenIdleAfterLoad(task: () => void) {
+  const schedule = () => {
+    if (typeof window.requestIdleCallback === "function") window.requestIdleCallback(task, { timeout: 3000 });
+    else window.setTimeout(task, 300);
+  };
+  if (document.readyState === "complete") schedule();
+  else window.addEventListener("load", schedule, { once: true });
+  return () => window.removeEventListener("load", schedule);
+}
+
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    loadPostHog();
-  }, []);
+  useEffect(() => whenIdleAfterLoad(loadPostHog), []);
 
   return (
     <>

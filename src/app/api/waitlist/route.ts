@@ -1,59 +1,17 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 /**
- * Waitlist signup endpoint.
- *
- * Requires SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in env.
- * Table: waitlist (email TEXT UNIQUE, created_at TIMESTAMPTZ DEFAULT now(), source TEXT)
- *
- * Until Supabase is configured, returns a success stub so the form works.
+ * The waitlist is closed. Garth parked it on 17 Oct 2026 and its Supabase backend
+ * (hlpyjifgedpxcurqlqbr) no longer exists, so nothing could be stored. Answer 410 Gone,
+ * so no sign-up is ever accepted into a void, and read nothing from the request.
  */
-export async function POST(request: NextRequest) {
-  try {
-    const { email, source } = await request.json();
+const CLOSED = {
+  error: "The Veld waitlist is closed and is not accepting sign-ups. Nothing was submitted or stored.",
+};
 
-    if (!email || typeof email !== "string" || !email.includes("@")) {
-      return NextResponse.json(
-        { error: "Valid email required" },
-        { status: 400 }
-      );
-    }
-
-    const supabaseUrl = process.env.SUPABASE_URL;
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-    if (!supabaseUrl || !supabaseKey) {
-      // Stub mode — log and return success until DB is configured
-      console.log("[waitlist-stub]", email, source ?? "direct");
-      return NextResponse.json({ success: true });
-    }
-
-    const { createClient } = await import("@supabase/supabase-js");
-    const supabase = createClient(supabaseUrl, supabaseKey);
-
-    const { error } = await supabase.from("waitlist").upsert(
-      {
-        email: email.toLowerCase().trim(),
-        source: source ?? "direct",
-      },
-      { onConflict: "email" }
-    );
-
-    if (error) {
-      console.error("[waitlist]", error);
-      return NextResponse.json(
-        { error: "Failed to join waitlist" },
-        { status: 500 }
-      );
-    }
-
-    // TODO: Trigger Brevo auto-responder email here once API key is configured
-
-    return NextResponse.json({ success: true });
-  } catch {
-    return NextResponse.json(
-      { error: "Invalid request" },
-      { status: 400 }
-    );
-  }
+function gone() {
+  return NextResponse.json(CLOSED, { status: 410, headers: { "Cache-Control": "no-store" } });
 }
+
+export const GET = gone;
+export const POST = gone;

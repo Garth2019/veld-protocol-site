@@ -319,18 +319,19 @@ section { position: relative; }
 .hero-h1 .it { font-style: italic; }
 .hero-h1 .gold { color: var(--gold); }
 
-/* kinetic line reveal */
+/* kinetic line reveal — pure CSS from the first paint, so the hero copy never waits for
+   hydration (it used to start only when JS added .ready to #hero) */
 .line-mask { display: block; overflow: hidden; }
 .line-mask > span {
   display: block;
   transform: translateY(110%);
   opacity: 0;
 }
-.hero.ready .line-mask > span {
+.hero .line-mask > span {
   animation: line-rise 0.95s var(--ease-reveal) forwards;
 }
-.hero.ready .line-mask:nth-child(2) > span { animation-delay: 0.10s; }
-.hero.ready .line-mask:nth-child(3) > span { animation-delay: 0.20s; }
+.hero .line-mask:nth-child(2) > span { animation-delay: 0.10s; }
+.hero .line-mask:nth-child(3) > span { animation-delay: 0.20s; }
 @keyframes line-rise {
   to { transform: translateY(0); opacity: 1; }
 }
@@ -343,7 +344,7 @@ section { position: relative; }
   line-height: 1.6;
   opacity: 0;
 }
-.hero.ready .hero-sub { animation: fade-up 0.9s var(--ease-reveal) 0.5s forwards; }
+.hero .hero-sub { animation: fade-up 0.9s var(--ease-reveal) 0.5s forwards; }
 
 .hero-cta {
   margin: 40px auto 0;
@@ -353,7 +354,7 @@ section { position: relative; }
   flex-wrap: wrap;
   opacity: 0;
 }
-.hero.ready .hero-cta { animation: fade-up 0.9s var(--ease-reveal) 0.62s forwards; }
+.hero .hero-cta { animation: fade-up 0.9s var(--ease-reveal) 0.62s forwards; }
 
 .hero-chips {
   margin: 26px auto 0;
@@ -368,7 +369,7 @@ section { position: relative; }
   color: var(--ink-mute);
   opacity: 0;
 }
-.hero.ready .hero-chips { animation: fade-up 0.9s var(--ease-reveal) 0.74s forwards; }
+.hero .hero-chips { animation: fade-up 0.9s var(--ease-reveal) 0.74s forwards; }
 .hero-chips span { display: inline-flex; align-items: center; gap: 8px; }
 .hero-chips .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
 
@@ -386,7 +387,7 @@ section { position: relative; }
   z-index: 2;
   opacity: 0;
 }
-.hero.ready .stage-shell { animation: fade-up 1.1s var(--ease-reveal) 0.85s forwards; }
+.hero .stage-shell { animation: fade-up 1.1s var(--ease-reveal) 0.85s forwards; }
 
 .stage {
   position: relative;

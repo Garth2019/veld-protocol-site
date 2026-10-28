@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import "./veld.css";
 import { HeroFilm } from "./_components/HeroFilm";
 import { VeldWordmark } from "@/components/VeldWordmark";
-import { WaitlistForm } from "./_components/WaitlistForm";
 import { VeldMotion } from "./_components/VeldMotion";
 
 export const metadata: Metadata = {
   title: { absolute: "Veld — Agents that transact for real" },
   description:
     "Veld — the open settlement layer for autonomous agents. Discover, negotiate, escrow in USDC, settle on-chain, and carry portable reputation.",
+  alternates: { canonical: "/" },
 };
 
 /**
@@ -571,7 +571,8 @@ export default function UseCasesProPage() {
               onboarding builders and providers now.
             </p>
           </div>
-          <WaitlistForm />
+          {/* The waitlist form is hidden: the waitlist was parked on 17 Oct 2026 and /api/waitlist
+              now answers 410. What replaces it, if anything, is Garth's call. */}
         </div>
       </section>
 
