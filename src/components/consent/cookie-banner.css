@@ -1,0 +1,100 @@
+/*
+ * Cookie banner. Plain class rules (not Tailwind utilities) on purpose: the
+ * homepage's veld.css carries an unlayered reset (`* { margin: 0; padding: 0 }`,
+ * `button { border: none; background: none }`) that beats layered utilities, and
+ * the banner has to look the same on every page.
+ */
+
+.cookie-banner {
+  --cb-surface: rgba(19, 22, 30, 0.96); /* --veld-forest at 96% */
+  --cb-line: rgba(255, 255, 255, 0.1);
+  --cb-text: rgba(199, 205, 216, 0.85); /* --veld-pale */
+
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 9500; /* above the homepage's grain (9000) and vignette (8000) */
+  padding: 0 12px 12px;
+  pointer-events: none;
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+}
+
+.cookie-banner__card {
+  pointer-events: auto;
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid var(--cb-line);
+  border-radius: 10px;
+  background: var(--cb-surface);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.cookie-banner__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--veld-surface);
+}
+.cookie-banner__title:focus { outline: none; }
+
+.cookie-banner__text {
+  margin: 8px 0 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--cb-text);
+}
+.cookie-banner__text strong { color: var(--veld-surface); font-weight: 600; }
+
+.cookie-banner__link {
+  color: var(--veld-gold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 150ms ease;
+}
+.cookie-banner__link:hover { color: var(--veld-surface); }
+
+.cookie-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Reject and Accept are deliberately identical: same size, weight and colour. */
+.cookie-banner__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 7rem;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1px solid rgba(232, 199, 102, 0.6); /* --veld-gold at 60% */
+  border-radius: 6px;
+  background: transparent;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--veld-surface);
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+.cookie-banner__btn:hover { background: var(--veld-gold); color: var(--veld-dark); }
+
+.cookie-banner__btn:focus-visible,
+.cookie-banner__link:focus-visible {
+  outline: 2px solid var(--veld-gold);
+  outline-offset: 2px;
+}
+
+@media (min-width: 640px) {
+  .cookie-banner { padding: 0 24px 24px; }
+  .cookie-banner__card { padding: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cookie-banner__btn,
+  .cookie-banner__link { transition: none; }
+}

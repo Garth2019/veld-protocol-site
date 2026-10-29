@@ -10,6 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/protocol",
     "/about",
     "/blog",
+    "/privacy",
+    "/cookies",
   ];
 
   return routes.map((route) => ({

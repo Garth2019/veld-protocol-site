@@ -3,6 +3,7 @@ import "./veld.css";
 import { HeroFilm } from "./_components/HeroFilm";
 import { VeldWordmark } from "@/components/VeldWordmark";
 import { VeldMotion } from "./_components/VeldMotion";
+import { CookieSettingsButton } from "@/components/consent/CookieSettingsButton";
 
 export const metadata: Metadata = {
   title: { absolute: "Veld — Agents that transact for real" },
@@ -610,6 +611,14 @@ export default function UseCasesProPage() {
                 <a href="#">Blog</a>
                 <a href="#waitlist">Early access</a>
                 <a href="#">Contact</a>
+              </div>
+              {/* Plain anchors (full page loads): a client-side hop would carry veld.css's
+                  unlayered reset onto the inner pages and strip their spacing. */}
+              <div className="footer-col">
+                <h4>Legal</h4>
+                <a href="/privacy">Privacy</a>
+                <a href="/cookies">Cookies</a>
+                <CookieSettingsButton className="footer-col-btn" />
               </div>
             </div>
           </div>

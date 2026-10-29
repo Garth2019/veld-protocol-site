@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { GITHUB_URL } from "@/lib/constants";
 import { VeldWordmark } from "@/components/VeldWordmark";
+import { CookieSettingsButton } from "@/components/consent/CookieSettingsButton";
 
 const FOOTER_SECTIONS = [
   {
@@ -23,13 +24,22 @@ const FOOTER_SECTIONS = [
       { href: "/blog", label: "Blog" },
     ],
   },
+  {
+    title: "Legal",
+    links: [
+      { href: "/privacy", label: "Privacy" },
+      { href: "/cookies", label: "Cookies" },
+    ],
+  },
 ] as const;
+
+const FOOTER_LINK_CLASS = "text-sm text-veld-pale/60 transition-colors hover:text-veld-pale";
 
 export function Footer() {
   return (
     <footer className="border-t border-white/5 bg-veld-dark">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-5">
           {/* Wordmark column */}
           <div className="col-span-2 sm:col-span-1">
             <Link href="/" className="inline-block" aria-label="Veld home">
@@ -49,14 +59,16 @@ export function Footer() {
               <ul className="mt-4 flex flex-col gap-3">
                 {section.links.map((link) => (
                   <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-veld-pale/60 transition-colors hover:text-veld-pale"
-                    >
+                    <Link href={link.href} className={FOOTER_LINK_CLASS}>
                       {link.label}
                     </Link>
                   </li>
                 ))}
+                {section.title === "Legal" && (
+                  <li>
+                    <CookieSettingsButton className={`${FOOTER_LINK_CLASS} cursor-pointer text-left`} />
+                  </li>
+                )}
               </ul>
             </div>
           ))}
