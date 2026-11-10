@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import {
   LegalLink,
   LegalList,
@@ -7,12 +8,11 @@ import {
   LegalTable,
 } from "@/components/legal/LegalPage";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/privacy", {
   title: "Privacy notice",
   description:
     "How GETBOOKD LTD collects and uses personal data on veldprotocol.io — the early-access list, server logs and optional analytics.",
-  alternates: { canonical: "/privacy" },
-};
+});
 
 const LAST_UPDATED = "28 October 2026";
 const CONTACT_EMAIL = "info@getbookd.io";

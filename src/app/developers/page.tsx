@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import { GITHUB_URL } from "@/lib/constants";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/developers", {
   title: "Developers",
   description: "Developer documentation and resources for Veld Protocol.",
-};
+});
 
 export default function Developers() {
   return (

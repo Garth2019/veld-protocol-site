@@ -1,23 +1,6 @@
 import type { MetadataRoute } from "next";
-
-const BASE_URL = "https://veldprotocol.io";
+import { sitemapEntries } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = [
-    "",
-    "/how-it-works",
-    "/developers",
-    "/protocol",
-    "/about",
-    "/blog",
-    "/privacy",
-    "/cookies",
-  ];
-
-  return routes.map((route) => ({
-    url: `${BASE_URL}${route}`,
-    lastModified: new Date(),
-    changeFrequency: route === "/blog" ? "weekly" : "monthly",
-    priority: route === "" ? 1 : 0.8,
-  }));
+  return sitemapEntries(new Date());
 }
