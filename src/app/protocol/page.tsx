@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/protocol", {
   title: "Protocol",
   description: "The Veld Protocol specification and technical details.",
-};
+});
 
 export default function Protocol() {
   return (

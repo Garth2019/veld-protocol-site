@@ -4,6 +4,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { SiteChrome } from "@/components/SiteChrome";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import { CookieBanner } from "@/components/consent/CookieBanner";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 // Not preloaded: the home page (the showcase) never uses Inter, and a preload there competes with its LCP.
@@ -31,29 +32,19 @@ const modak = Modak({
   display: "swap",
 });
 
-const DESCRIPTION =
-  "Veld — the open settlement layer for autonomous agents. Discover, negotiate, escrow in USDC, settle on-chain, and carry portable reputation.";
-
 export const metadata: Metadata = {
   title: {
-    default: "Veld Protocol",
-    template: "%s | Veld Protocol",
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
   },
-  description: DESCRIPTION,
-  metadataBase: new URL("https://veldprotocol.io"),
-  openGraph: {
-    type: "website",
-    locale: "en_GB",
-    url: "https://veldprotocol.io",
-    siteName: "Veld Protocol",
-    title: "Veld — Agents that transact for real",
-    description: DESCRIPTION,
-    images: [{ url: "/og/veld-launch", width: 1200, height: 630 }],
-  },
+  description: SITE_DESCRIPTION,
+  metadataBase: new URL(SITE_URL),
+  // No canonical or openGraph here: both are per page, so each page sets its own
+  // through pageMetadata() and og:url can never drift from the canonical.
   twitter: {
     card: "summary_large_image",
     title: "Veld — Agents that transact for real",
-    description: DESCRIPTION,
+    description: SITE_DESCRIPTION,
   },
   // Icons are provided by the file conventions app/icon.svg + app/apple-icon.tsx
   // (the gold-block "v" mark). No manual icons config needed.

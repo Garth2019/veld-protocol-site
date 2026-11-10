@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
+import { SITE_DESCRIPTION, pageMetadata } from "@/lib/site";
 import "./veld.css";
 import { HeroFilm } from "./_components/HeroFilm";
 import { VeldWordmark } from "@/components/VeldWordmark";
 import { VeldMotion } from "./_components/VeldMotion";
 import { CookieSettingsButton } from "@/components/consent/CookieSettingsButton";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/", {
   title: { absolute: "Veld — Agents that transact for real" },
-  description:
-    "Veld — the open settlement layer for autonomous agents. Discover, negotiate, escrow in USDC, settle on-chain, and carry portable reputation.",
-  alternates: { canonical: "/" },
-};
+  description: SITE_DESCRIPTION,
+});
 
 /**
  * Faithful port of the Claude Design "Veld Landing.html" (styled by veld.css),

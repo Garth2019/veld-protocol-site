@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import {
   LegalLink,
   LegalList,
@@ -8,12 +9,11 @@ import {
 } from "@/components/legal/LegalPage";
 import { CookieSettingsButton } from "@/components/consent/CookieSettingsButton";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/cookies", {
   title: "Cookie notice",
   description:
     "The cookies and browser storage veldprotocol.io uses, why, for how long, and how to change your choice.",
-  alternates: { canonical: "/cookies" },
-};
+});
 
 const LAST_UPDATED = "28 October 2026";
 const CONTACT_EMAIL = "info@getbookd.io";
